@@ -1,3 +1,4 @@
+h5py
 scikit-learn
 numpy
 tensorflow > 1.10

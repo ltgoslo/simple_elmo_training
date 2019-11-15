@@ -1,7 +1,7 @@
 # simple_elmo_training
-Minimal code to train ELMo models in TensorFlow
+Minimal code to train ELMo models in TensorFlow.
 
-Heavily based on https://github.com/allenai/bilm-tf
+Heavily based on https://github.com/allenai/bilm-tf .
 
 Most changes are simplifications and updating the code to the recent versions of TensorFlow 1.
 See also our repository with [simple code to infer contextualized word vectors from pre-trained ELMo models](https://github.com/ltgoslo/simple_elmo).
@@ -31,7 +31,7 @@ Before training, please review the settings in `bilm/train_elmo.py`. The most im
 # Converting to HDF5
 
 After the training, use the `bilm/dump_weights.py` script to convert the checkpoints to and HDF5 model.
-Save your vocabulary in the same directory. Change the `n_characters` in the `options.json` file to 262.1
+Save your vocabulary in the same directory. Change the `n_characters` in the `options.json` file to 262.
 
 More details at https://github.com/allenai/bilm-tf
 
