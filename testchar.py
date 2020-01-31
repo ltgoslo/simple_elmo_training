@@ -8,7 +8,7 @@ import os
 import sys
 import numpy as np
 import tensorflow as tf
-from gensim.matutils import unitvec
+from sklearn import preprocessing
 from smart_open import open
 from bilm import Batcher, BidirectionalLanguageModel, weight_layers
 
@@ -35,7 +35,7 @@ weight_file = os.path.join(datadir, 'model.hdf5')
 batcher = Batcher(vocab_file, 50)
 
 # Input placeholders to the biLM.
-sentence_character_ids = tf.placeholder('int32', shape=(None, None, 50))
+sentence_character_ids = tf.compat.v1.placeholder('int32', shape=(None, None, 50))
 
 # Build the biLM graph.
 bilm = BidirectionalLanguageModel(options_file, weight_file, max_batch_size=200)
@@ -51,7 +51,7 @@ elmo_sentence_input = weight_layers('input', sentence_embeddings_op, use_top_onl
 
 # elmo_sentence_output = weight_layers('output', sentence_embeddings_op, l2_coef=0.0)
 
-with tf.Session() as sess:
+with tf.compat.v1.Session() as sess:
     # It is necessary to initialize variables once before running inference.
     sess.run(tf.global_variables_initializer())
 
@@ -72,7 +72,7 @@ with tf.Session() as sess:
     query_word = tokenized_sentences[0][query_nr]
     print('Query:', query_word)
     query_vec = elmo_sentence_input_[0][query_nr, :]
-    query_vec = unitvec(query_vec)
+    query_vec = preprocessing.normalize(query_vec, norm='l2')
     print(query_vec.shape)
 
     for sent_nr, sent in enumerate(tokenized_sentences):
@@ -83,7 +83,7 @@ with tf.Session() as sess:
         sims = {}
         for nr, word in enumerate(sent):
             w_vec = elmo_sentence_input_[sent_nr][nr, :]
-            w_vec = unitvec(w_vec)
+            w_vec = preprocessing.normalize(w_vec, norm='l2')
             sims[word] = np.dot(query_vec, w_vec)
 
         for k in sorted(sims, key=sims.get, reverse=True):

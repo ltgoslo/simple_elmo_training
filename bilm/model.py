@@ -111,7 +111,8 @@ class BidirectionalLanguageModel(object):
 
         return ret
 
-    def _build_ops(self, lm_graph):
+    @staticmethod
+    def _build_ops(lm_graph):
         with tf.control_dependencies([lm_graph.update_state_op]):
             # get the LM embeddings
             token_embeddings = lm_graph.embedding
