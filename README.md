@@ -31,7 +31,11 @@ Before training, please review the settings in `bilm/train_elmo.py`. The most im
 # Converting to HDF5
 
 After the training, use the `bilm/dump_weights.py` script to convert the checkpoints to and HDF5 model.
-Save your vocabulary in the same directory. Change the `n_characters` in the `options.json` file to 262.
+
+`python3 bilm/dump_weights.py --save_dir $MODEL_DIR --outfile $MODEL_DIR/model.hdf5`
+
+Save your vocabulary file in the same directory.
+Change the `n_characters` value in the `options.json` file from 261 to 262 to use the saved model for inference.
 
 More details at https://github.com/allenai/bilm-tf
 
