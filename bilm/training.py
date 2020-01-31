@@ -412,9 +412,8 @@ class LanguageModel(object):
                 tf.stack(_lstm_output_unpacked, axis=1), [-1, projection_dim])
             if self.is_training:
                 # add dropout to output
-                rate = 1 - keep_prob
                 lstm_output_flat = tf.nn.dropout(lstm_output_flat,
-                                                 rate)
+                                                 keep_prob)
             tf.compat.v1.add_to_collection('lstm_output_embeddings', _lstm_output_unpacked)
 
             lstm_outputs.append(lstm_output_flat)
@@ -748,7 +747,7 @@ def train(options, data, n_gpus, tf_save_dir, tf_log_dir,
         hist_summary_op = tf.compat.v1.summary.merge(histogram_summaries)
 
         # init = tf.initialize_all_variables()
-        init = tf.global_variables_initializer()
+        init = tf.compat.v1.global_variables_initializer()
 
     # do the training loop
     bidirectional = options.get('bidirectional', False)
