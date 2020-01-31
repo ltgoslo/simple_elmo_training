@@ -14,7 +14,7 @@ import sys
 DTYPE = 'float32'
 DTYPE_INT = 'int64'
 
-tf.logging.set_verbosity(tf.logging.INFO)
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.INFO)
 
 
 def print_variable_summary():

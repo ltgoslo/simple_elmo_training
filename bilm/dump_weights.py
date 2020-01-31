@@ -2,7 +2,7 @@
 
 import argparse
 
-from bilm.training import dump_weights as dw
+from training import dump_weights as dw
 
 
 if __name__ == '__main__':
