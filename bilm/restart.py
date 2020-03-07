@@ -1,8 +1,8 @@
 
 import argparse
 
-from bilm.data import LMDataset, BidirectionalLMDataset
-from bilm.training import train, load_options_latest_checkpoint, load_vocab
+from data import LMDataset, BidirectionalLMDataset
+from training import train, load_options_latest_checkpoint, load_vocab
 
 
 def main(args):

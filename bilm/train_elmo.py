@@ -9,7 +9,7 @@ def main(args):
     vocab = load_vocab(args.vocab_file, 50)
 
     # define the options
-    batch_size = 128  # batch size for each GPU
+    batch_size = 192  # batch size for each GPU
     n_gpus = 2
 
     # number of tokens in training data
@@ -43,7 +43,7 @@ def main(args):
 
         'all_clip_norm_val': 10.0,
 
-        'n_epochs': 3,
+        'n_epochs': args.epochs,
         'n_train_tokens': n_train_tokens,
         'batch_size': batch_size,
         'n_tokens_vocab': vocab.size,
@@ -66,6 +66,7 @@ if __name__ == '__main__':
     parser.add_argument('--vocab_file', help='Vocabulary file')
     parser.add_argument('--train_prefix', help='Prefix for train files')
     parser.add_argument('--size', type=int, help='Number of training tokens')
+    parser.add_argument('--epochs', type=int, default=3, help='Number of training epochs')
 
     arguments = parser.parse_args()
     main(arguments)
