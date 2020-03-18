@@ -18,7 +18,6 @@ print('\n'.join(['<S>', '</S>', '<UNK>']))
 
 print('Vocabulary size before pruning:', len(words), file=sys.stderr)
 
-# a = sorted(words, key=words.get, reverse=True)[:THRESHOLD]
 a = words.most_common(THRESHOLD)
 for w in a:
     print(w[0])
