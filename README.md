@@ -16,7 +16,7 @@ where
 
 `$SIZE` if the number of word tokens in $DATA (necessary to properly construct and log batches).
 
-`$VOCAB` is a (possibly gzipped) one-word-per-line vocabulary file to be used for language modeling; it should always contain at least <S>, </S> and <UNK>.
+`$VOCAB` is a (possibly gzipped) one-word-per-line vocabulary file to be used for language modeling; it should always contain at least \<S\>, \</S\> and \<UNK\>.
 
 `$OUT` is a directory where the TensorFlow checkpoints will be saved.
 
