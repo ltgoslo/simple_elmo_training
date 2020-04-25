@@ -6,7 +6,7 @@ from training import train, load_vocab
 
 def main(args):
     # load the vocab
-    vocab = load_vocab(args.vocab_file, 50)
+    vocab = load_vocab(args.vocab_file, args.maxchar)
 
     # define the options
     batch_size = 192  # batch size for each GPU
@@ -27,7 +27,7 @@ def main(args):
                                  [5, 256],
                                  [6, 512],
                                  [7, 1024]],
-                     'max_characters_per_token': 50,
+                     'max_characters_per_token': args.maxchar,
                      'n_characters': 261,
                      'n_highway': 2},
 
@@ -67,6 +67,7 @@ if __name__ == '__main__':
     parser.add_argument('--train_prefix', help='Prefix for train files')
     parser.add_argument('--size', type=int, help='Number of training tokens')
     parser.add_argument('--epochs', type=int, default=3, help='Number of training epochs')
+    parser.add_argument('--maxchar', type=int, default=50, help='Maximum characters per token (longer tokens will be cropped)')
 
     arguments = parser.parse_args()
     main(arguments)

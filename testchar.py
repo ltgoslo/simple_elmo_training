@@ -27,15 +27,22 @@ tokenized_sentences = [sentence.split() for sentence in raw_sentences]
 print('Sentences:', len(tokenized_sentences))
 
 datadir = sys.argv[2]
-vocab_file = os.path.join(datadir, 'vocab.txt.gz')
+if os.path.isfile(os.path.join(directory, 'vocab.txt.gz')):
+    vocab_file = os.path.join(directory, 'vocab.txt.gz')
+elif os.path.isfile(os.path.join(directory, 'vocab.txt')):
+    vocab_file = os.path.join(directory, 'vocab.txt')
+
 options_file = os.path.join(datadir, 'options.json')
 weight_file = os.path.join(datadir, 'model.hdf5')
+with open(options_file, 'r') as f:
+    m_options = json.load(f)
 
+max_chars = m_options['char_cnn']['max_characters_per_token']
 # Create a Batcher to map text to character ids.
-batcher = Batcher(vocab_file, 50)
+batcher = Batcher(vocab_file, max_chars)
 
 # Input placeholders to the biLM.
-sentence_character_ids = tf.compat.v1.placeholder('int32', shape=(None, None, 50))
+sentence_character_ids = tf.compat.v1.placeholder('int32', shape=(None, None, max_chars))
 
 # Build the biLM graph.
 bilm = BidirectionalLanguageModel(options_file, weight_file, max_batch_size=200)
