@@ -67,7 +67,8 @@ if __name__ == '__main__':
     parser.add_argument('--train_prefix', help='Prefix for train files')
     parser.add_argument('--size', type=int, help='Number of training tokens')
     parser.add_argument('--epochs', type=int, default=3, help='Number of training epochs')
-    parser.add_argument('--maxchar', type=int, default=50, help='Maximum characters per token (longer tokens will be cropped)')
+    parser.add_argument('--maxchar', type=int, default=50, help='Maximum characters per token '
+                                                                '(longer tokens will be cropped)')
 
     arguments = parser.parse_args()
     main(arguments)

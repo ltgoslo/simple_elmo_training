@@ -1,5 +1,5 @@
 h5py
 scikit-learn
 numpy
-tensorflow = 1.15.2
+tensorflow
 smart_open > 1.8.1

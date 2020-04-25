@@ -1,5 +1,4 @@
-# python3
-
+# /usr/bin/env python3
 # coding: utf-8
 
 # ELMo usage example with character inputs.
@@ -10,6 +9,7 @@ import numpy as np
 import tensorflow as tf
 from sklearn import preprocessing
 from smart_open import open
+import json
 from bilm import Batcher, BidirectionalLanguageModel, weight_layers
 
 corpusfile = sys.argv[1]
@@ -27,17 +27,20 @@ tokenized_sentences = [sentence.split() for sentence in raw_sentences]
 print('Sentences:', len(tokenized_sentences))
 
 datadir = sys.argv[2]
-if os.path.isfile(os.path.join(directory, 'vocab.txt.gz')):
-    vocab_file = os.path.join(directory, 'vocab.txt.gz')
-elif os.path.isfile(os.path.join(directory, 'vocab.txt')):
-    vocab_file = os.path.join(directory, 'vocab.txt')
+if os.path.isfile(os.path.join(datadir, 'vocab.txt.gz')):
+    vocab_file = os.path.join(datadir, 'vocab.txt.gz')
+elif os.path.isfile(os.path.join(datadir, 'vocab.txt')):
+    vocab_file = os.path.join(datadir, 'vocab.txt')
+else:
+    print('No vocabulary file found. Exiting...')
+    exit()
 
 options_file = os.path.join(datadir, 'options.json')
 weight_file = os.path.join(datadir, 'model.hdf5')
 with open(options_file, 'r') as f:
     m_options = json.load(f)
-
 max_chars = m_options['char_cnn']['max_characters_per_token']
+
 # Create a Batcher to map text to character ids.
 batcher = Batcher(vocab_file, max_chars)
 
@@ -60,7 +63,7 @@ elmo_sentence_input = weight_layers('input', sentence_embeddings_op, use_top_onl
 
 with tf.compat.v1.Session() as sess:
     # It is necessary to initialize variables once before running inference.
-    sess.run(tf.global_variables_initializer())
+    sess.run(tf.compat.v1.global_variables_initializer())
 
     # model_vars = tf.global_variables()
     # a = slim.model_analyzer.analyze_vars(model_vars, print_info=True)
