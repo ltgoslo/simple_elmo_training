@@ -14,9 +14,9 @@ for line in sys.stdin:
     tokenized = line.strip().split()
     words.update(tokenized)
 
-print('\n'.join(['<S>', '</S>', '<UNK>']))
+print("\n".join(["<S>", "</S>", "<UNK>"]))
 
-print('Vocabulary size before pruning:', len(words), file=sys.stderr)
+print("Vocabulary size before pruning:", len(words), file=sys.stderr)
 
 a = words.most_common(THRESHOLD)
 for w in a:
