@@ -2,6 +2,7 @@ import argparse
 
 from data import BidirectionalLMDataset
 from training import train, load_vocab
+import os
 
 
 def main(args):
@@ -55,6 +56,7 @@ def main(args):
     data = BidirectionalLMDataset(prefix, vocab, test=False, shuffle_on_load=True)
 
     tf_save_dir = args.save_dir
+    os.makedirs(tf_save_dir, exist_ok=True)
     tf_log_dir = args.save_dir
     train(options, data, n_gpus, tf_save_dir, tf_log_dir)
 
