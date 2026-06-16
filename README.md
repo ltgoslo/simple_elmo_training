@@ -4,6 +4,9 @@ Minimal code to train ELMo models in TensorFlow.
 Heavily based on https://github.com/allenai/bilm-tf .
 
 Most changes are simplifications and updating the code to the recent versions of TensorFlow 1.
+
+NB: TensorFlow is outdated and has severe vulnerabilities. The code in this repository, however, is not updated to use TensorFlow 2. Thus, you take the risk.
+
 See also our repository with [simple code to infer contextualized word vectors from pre-trained ELMo models](https://github.com/ltgoslo/simple_elmo).
 
 # Training
